@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block css %}
+        <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"/>
+       
+{% endblock %}
+       
+    
+{% block content %} 
+        <div class="main">
+           
+            <h1 style="margin-top:5%;">Departments</h1>
+           
+            <div style="overflow-x:auto;">
+            
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Department Name</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                
+               
+                {% if departments %}
+                {% for department in departments %}
+                
+
+                
+                <tr>
+                    <td>#{{department.id}}</td>
+                    <td>{{department.department_name}}</td>
+                    <td>
+                    <form  action="{{url_for('update_department',department_id=department.id)}}">
+                        <button class="btn">Update</button>
+                    </form>
+                    </td>
+                    
+                    <td>
+                        <form  action="{{url_for('delete_department',department_id=department.id)}}">
+                            <button class="btn_delete" onclick="return confirm('Are you sure you want to delete department by deleting it you are deleting all employees in this department')">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+                
+                {% endfor %}
+               
+                {% else %}
+                <tr>
+                    <td>No departments yet</td>
+                </tr>
+                
+                {% endif %}
+            </table>
+            </div>
+        </div>
+        
+{% endblock %}      

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block css %}
+        <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"/>
+
+{% endblock %}
+       
+    
+{% block content %}      
+        <div class="main">
+           
+            <h1 style="margin-top:5%;">Employees</h1>
+           
+            <div style="overflow-x:auto;">
+            <form  method="GET" action="{{url_for('show_employees')}}">
+                <select name="department" id="department" class="dep_drop_down">
+                    <option value='0'>All Departments</option>
+                    {% for department in departments %}
+                    <option value="{{department.id}}">{{department.department_name}}</option>
+                    {% endfor %}
+                </select>
+                    <button class="btn" type="submit">Go</button>
+            </form>
+            
+            
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Name</th>
+                    <th>Years of Experiance</th>
+                    <th>Salary</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+                {% if users %}
+                {% for user in users %}
+                <tr>
+                    <td>#{{user.id}}</td>
+                    <td>{{user.title_name}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{current_year - user.date_of_hiring }}</td>
+                    <td>{{user.salary}}</td>
+                    <td>
+                    <form  action="{{url_for('update_user',user_id=user.id)}}">
+                        <button class="btn">Update</button>
+                    </form>
+                    </td>
+                    
+                    <td>
+                        <form  action="{{url_for('delete_user',user_id=user.id)}}">
+                            <button class="btn_delete">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td>No Employees yet</td>
+                </tr>
+                
+                {% endif %}
+            </table>
+            </div>
+        </div>
+    {% endblock %}      
+   

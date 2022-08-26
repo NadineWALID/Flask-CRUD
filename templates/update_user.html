@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block css %}
+
+        <link rel="stylesheet" href="{{url_for('static',filename='css/add_user.css')}}"/>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"/>
+{% endblock %}
+{% block content %} 
+        <h1 style="margin-top:5%;">Update Employee</h1>
+        <div class="mainform">
+            <form method="post" action="/postupdateduser">
+              <label for="title">Title</label>
+              <select id="title" required="" name="title" >
+                {%for title in titles %}
+                <option value="{{title.id}}">{{title.title_name}}</option>
+                {% endfor %}
+              </select>
+
+              <label for="name">Name</label>
+              <input type="text" required="" id="name" name="name" value="{{user.name}}">
+          
+              <label for="department">Department</label>
+              <select id="department" required="" name="department" value="{{user.department}}">
+                {% for department in departments %}
+                <option value="{{department.id}}">{{department.department_name}}</option>
+                {% endfor %}
+              </select>
+
+              <label for="date_of_hiring">Date of Hiring</label>
+              <select id="date" required="" name="date">
+                <option value="{{user.date_of_hiring}}">{{user.date_of_hiring}}</option>
+                {%for i in range(0, 40)%}
+                <option value="{{current_year-i}}">{{current_year-i}}</option>
+                {% endfor %}
+              </select>
+
+              <label for="salaery">Salary</label>
+              <input type="number" id="salary" name="salary" value="{{user.salary}}" required="" >
+
+              <input id="user_id" name="user_id" type="hidden" value="{{user.id}}"/>
+
+              <input type="submit" value="Add">
+            </form>
+          </div>
+        
+{% endblock %}    

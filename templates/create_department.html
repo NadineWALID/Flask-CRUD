@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block css %}
+
+        <link rel="stylesheet" href="{{url_for('static',filename='css/add_user.css')}}"/>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"/>
+{% endblock %}
+       
+    
+{% block content %} 
+       <h1 style="margin-top:5%;">Add Department</h1>
+        <div class="mainform">
+          {% if department is none %}
+            <form method="post" action="/postdepartment">
+              <label>Department Name:</label>
+              <input type="text" id="name" name="name" placeholder="Name..">
+              <input type="submit" value="Add">
+            </form>
+              {% else %}
+              <form method="post" action="/postupdateddepartment">
+              <h1>Edit Department</h1>
+              <label>Id:</label>
+              <input type="text" id="dep_id" name="dep_id" style="background-color: #f2f2f2;" value="{{department.id}}" readonly>
+              
+              <input type="text" id="name" name="name" placeholder="Name.." value="{{department.department_name}}">
+              <input type="submit" value="Update">
+              </form>
+              {% endif %}
+              
+
+              
+            
+          </div>
+        
+ {% endblock %}      }
